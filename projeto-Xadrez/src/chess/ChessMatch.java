@@ -6,12 +6,17 @@ import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // esta classe compõe as regras do jogo de xadrez
 public class ChessMatch {
 
     private Integer turn;
     private Color currentPlayer;
     private Board board;
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMatch() {
         board = new Board(8, 8);
@@ -61,6 +66,10 @@ public class ChessMatch {
         Piece piece = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(piece, target);
+        if(capturedPiece != null){
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
         return capturedPiece;
     }
 
@@ -90,6 +99,7 @@ public class ChessMatch {
     // coloca uma nova peça no tabuleiro
     private void placeNewPiece(Character column, Integer row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     // responsável por iniciar a partida, colocando as peças no tabuleiro
