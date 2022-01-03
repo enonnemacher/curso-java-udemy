@@ -42,10 +42,7 @@ public class Program {
                     String type = leitorTeclado.nextLine();
                     chessMatch.replacePromotedPiece(type);
                 }
-            } catch (ChessException e) {
-                System.out.println(e.getMessage());
-                leitorTeclado.nextLine();
-            } catch (InputMismatchException e) {
+            } catch (ChessException | InputMismatchException e) {
                 System.out.println(e.getMessage());
                 leitorTeclado.nextLine();
             }
