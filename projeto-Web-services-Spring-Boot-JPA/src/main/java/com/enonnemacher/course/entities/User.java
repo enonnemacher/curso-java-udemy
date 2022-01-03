@@ -1,10 +1,17 @@
 package com.enonnemacher.course.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class User implements Serializable {
 
+    @Id // informa que a chave primária é o Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // informa que esse valor será autoincrementado
     private Long id;
     private String name;
     private String email;
