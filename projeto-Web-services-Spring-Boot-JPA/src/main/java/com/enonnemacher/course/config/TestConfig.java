@@ -2,10 +2,12 @@ package com.enonnemacher.course.config;
 
 import com.enonnemacher.course.entities.Category;
 import com.enonnemacher.course.entities.Order;
+import com.enonnemacher.course.entities.Product;
 import com.enonnemacher.course.entities.User;
 import com.enonnemacher.course.entities.enums.OrderStatus;
 import com.enonnemacher.course.repository.CategoryRepository;
 import com.enonnemacher.course.repository.OrderRepository;
+import com.enonnemacher.course.repository.ProductRepository;
 import com.enonnemacher.course.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User usuario1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -43,5 +48,12 @@ public class TestConfig implements CommandLineRunner {
         Category category2 = new Category(null, "Books");
         Category category3 = new Category(null, "Computers");
         categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+
+        Product product1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product product2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product product3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product product4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product product5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+        productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
     }
 }
