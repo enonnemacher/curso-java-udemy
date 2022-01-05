@@ -18,6 +18,8 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @ManyToMany
+    @JoinTable(name = "product_category_table", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
