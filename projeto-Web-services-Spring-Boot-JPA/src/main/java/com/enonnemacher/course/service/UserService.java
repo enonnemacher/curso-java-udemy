@@ -1,6 +1,7 @@
 package com.enonnemacher.course.service;
 
 import com.enonnemacher.course.entities.User;
+import com.enonnemacher.course.exceptions.NotFoundException;
 import com.enonnemacher.course.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> result = userRepository.findById(id);
-        return result.get();
+        return result.orElseThrow(() -> new NotFoundException(id));
     }
 
     public User save(User user) {
