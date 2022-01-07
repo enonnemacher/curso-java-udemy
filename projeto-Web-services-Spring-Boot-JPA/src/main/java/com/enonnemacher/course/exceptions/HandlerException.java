@@ -18,4 +18,12 @@ public class HandlerException {
         StandardErrorException standardErrorException = new StandardErrorException(Instant.now(), httpStatus.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(httpStatus).body(standardErrorException);
     }
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardErrorException> dataBase(DataBaseException e, HttpServletRequest request) {
+        String error = "Database error";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardErrorException standardErrorException = new StandardErrorException(Instant.now(), httpStatus.value(), error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(standardErrorException);
+    }
 }
