@@ -19,6 +19,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        return null;
+        List<User> list = userService.findAll();
+        return ResponseEntity.ok().body(list);
     }
 }
