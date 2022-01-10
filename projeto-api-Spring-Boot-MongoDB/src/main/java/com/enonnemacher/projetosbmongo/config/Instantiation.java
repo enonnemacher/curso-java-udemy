@@ -2,6 +2,7 @@ package com.enonnemacher.projetosbmongo.config;
 
 import com.enonnemacher.projetosbmongo.domain.Post;
 import com.enonnemacher.projetosbmongo.domain.User;
+import com.enonnemacher.projetosbmongo.dto.AuthorDTO;
 import com.enonnemacher.projetosbmongo.repository.PostRepository;
 import com.enonnemacher.projetosbmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,10 @@ public class Instantiation implements CommandLineRunner {
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
-
-        Post post1 = new Post(null, simpleDateFormat.parse("01/01/2022"), "Feliz ano novo", "Ate ano que vem", maria);
-        Post post2 = new Post(null, simpleDateFormat.parse("03/01/2022"), "Partiu praia", "Ate mais ver", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, simpleDateFormat.parse("01/01/2022"), "Feliz ano novo", "Ate ano que vem", new AuthorDTO(maria));
+        Post post2 = new Post(null, simpleDateFormat.parse("03/01/2022"), "Partiu praia", "Ate mais ver", new AuthorDTO(maria));
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
