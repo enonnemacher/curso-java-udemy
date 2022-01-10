@@ -1,5 +1,6 @@
 package com.enonnemacher.projetosbmongo.controller;
 
+import com.enonnemacher.projetosbmongo.domain.Post;
 import com.enonnemacher.projetosbmongo.domain.User;
 import com.enonnemacher.projetosbmongo.dto.UserDTO;
 import com.enonnemacher.projetosbmongo.service.UserService;
@@ -44,5 +45,11 @@ public class UserController {
         user.setId(id);
         user = userService.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
