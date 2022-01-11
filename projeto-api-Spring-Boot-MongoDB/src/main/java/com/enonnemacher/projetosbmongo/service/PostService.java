@@ -4,9 +4,11 @@ import com.enonnemacher.projetosbmongo.domain.Post;
 import com.enonnemacher.projetosbmongo.exception.NotFoundException;
 import com.enonnemacher.projetosbmongo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class PostService {
 
     @Autowired
