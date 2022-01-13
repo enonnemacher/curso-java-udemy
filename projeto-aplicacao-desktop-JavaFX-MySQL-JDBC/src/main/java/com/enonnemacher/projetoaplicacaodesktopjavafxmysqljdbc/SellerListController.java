@@ -3,6 +3,7 @@ package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbIntegrityException;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.listeners.DataChangeListener;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.DepartmentService;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.SellerService;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Alerts;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Utils;
@@ -107,7 +108,8 @@ public class SellerListController implements Initializable, DataChangeListener {
 
             SellerFormController controller = fxmlLoader.getController();
             controller.setSeller(seller);
-            controller.setSellerService(new SellerService());
+            controller.setServices(new SellerService(), new DepartmentService());
+            controller.loadAssociatedObjects();
             controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
