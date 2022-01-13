@@ -1,6 +1,7 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.listeners.DataChangeListener;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.DepartmentService;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Alerts;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Utils;
@@ -25,7 +26,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
     private DepartmentService departmentService;
 
@@ -84,6 +85,7 @@ public class DepartmentListController implements Initializable {
             DepartmentFormController controller = fxmlLoader.getController();
             controller.setDepartment(department);
             controller.setDepartmentService(new DepartmentService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -96,5 +98,10 @@ public class DepartmentListController implements Initializable {
         } catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    @Override
+    public void onDataChanged() {
+        updateTableView();
     }
 }
