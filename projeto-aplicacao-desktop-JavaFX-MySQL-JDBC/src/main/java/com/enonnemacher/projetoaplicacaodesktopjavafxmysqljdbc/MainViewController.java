@@ -1,5 +1,6 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.DepartmentService;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void onMenuItemDepartment() {
         loadView("gui/DepartmentList.fxml");
+//        loadView2("gui/DepartmentList.fxml");
     }
 
     @FXML
@@ -56,6 +58,27 @@ public class MainViewController implements Initializable {
             mainVBox.getChildren().clear();
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(vBox.getChildren());
+        } catch (IOException e) {
+            Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private synchronized void loadView2(String absoluteName) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absoluteName));
+            VBox vBox = fxmlLoader.load();
+
+            Scene mainScene = Main.getMainScene();
+            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+
+            Node mainMenu = mainVBox.getChildren().get(0);
+            mainVBox.getChildren().clear();
+            mainVBox.getChildren().add(mainMenu);
+            mainVBox.getChildren().addAll(vBox.getChildren());
+
+            DepartmentListController departmentListController = fxmlLoader.getController();
+            departmentListController.setDepartmentService(new DepartmentService());
+            departmentListController.updateTableView();
         } catch (IOException e) {
             Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
