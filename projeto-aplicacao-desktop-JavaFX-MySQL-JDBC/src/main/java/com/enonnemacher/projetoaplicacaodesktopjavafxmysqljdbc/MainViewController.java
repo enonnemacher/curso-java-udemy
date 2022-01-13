@@ -1,6 +1,7 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.DepartmentService;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.SellerService;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemSeller() {
-        System.out.println("onMenuItemSellerAcition");
+        loadView("gui/SellerList.fxml", (SellerListController controller) -> {
+            controller.setSellerService(new SellerService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
