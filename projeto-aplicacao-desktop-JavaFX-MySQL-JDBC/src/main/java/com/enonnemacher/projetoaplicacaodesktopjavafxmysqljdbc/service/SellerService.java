@@ -3,7 +3,7 @@ package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service;
 
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.dao.DaoFactory;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.dao.SellerDao;
-import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class SellerService {
         }
     }
 
-    public void remove(Department department) {
-        sellerDao.deleteById(department.getId());
+    public void remove(Seller Seller) {
+        sellerDao.deleteById(Seller.getId());
     }
 }

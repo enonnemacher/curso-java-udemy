@@ -1,7 +1,6 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbIntegrityException;
-import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.listeners.DataChangeListener;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.SellerService;
@@ -33,7 +32,7 @@ public class SellerListController implements Initializable, DataChangeListener {
     private SellerService sellerService;
 
     @FXML
-    private TableView<Seller> tableViewDepartment;
+    private TableView<Seller> tableViewSeller;
 
     @FXML
     private TableColumn<Seller, Integer> tableColumnId;
@@ -59,13 +58,13 @@ public class SellerListController implements Initializable, DataChangeListener {
     @FXML
     private Button btNew;
 
-    private ObservableList<Department> observableList;
+    private ObservableList<Seller> observableList;
 
     @FXML
     public void onBtNewAction(ActionEvent actionEvent) {
         Stage parentStage = Utils.currentStage(actionEvent);
-        Department department = new Department();
-        createDialogForm(seller, "gui/DepartmentForm.fxml", parentStage);
+        Seller seller = new Seller();
+        createDialogForm(seller, "gui/SellerForm.fxml", parentStage);
     }
 
     public void setSellerService(SellerService sellerService) {
@@ -87,7 +86,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
 
         Stage stage = (Stage) Main.getMainScene().getWindow();
-        tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
+        tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
     }
 
     public void updateTableView() {
@@ -106,7 +105,7 @@ public class SellerListController implements Initializable, DataChangeListener {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = fxmlLoader.load();
 
-            DepartmentFormController controller = fxmlLoader.getController();
+            SellerFormController controller = fxmlLoader.getController();
             controller.setSeller(seller);
             controller.setSellerService(new SellerService());
             controller.subscribeDataChangeListener(this);
@@ -131,13 +130,13 @@ public class SellerListController implements Initializable, DataChangeListener {
 
     private void initEditButtons() {
         tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnEDIT.setCellFactory(param -> new TableCell<Department, Department>() {
+        tableColumnEDIT.setCellFactory(param -> new TableCell<Seller, Seller>() {
             private final Button button = new Button("edit");
 
             @Override
-            protected void updateItem(Department obj, boolean empty) {
-                super.updateItem(obj, empty);
-                if (obj == null) {
+            protected void updateItem(Seller seller, boolean empty) {
+                super.updateItem(seller, empty);
+                if (seller == null) {
                     setGraphic(null);
                     return;
                 }
@@ -166,7 +165,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         });
     }
 
-    private void removeEntity(Department department) {
+    private void removeEntity(Seller Seller) {
         Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 
         if (result.get() == ButtonType.OK) {
@@ -174,7 +173,7 @@ public class SellerListController implements Initializable, DataChangeListener {
                 throw new IllegalStateException("Service was null");
             }
             try {
-                sellerService.remove(department);
+                sellerService.remove(Seller);
                 updateTableView();
             } catch (DbIntegrityException e) {
                 Alerts.showAlert("Error removing object", null, e.getMessage(), Alert.AlertType.ERROR);
