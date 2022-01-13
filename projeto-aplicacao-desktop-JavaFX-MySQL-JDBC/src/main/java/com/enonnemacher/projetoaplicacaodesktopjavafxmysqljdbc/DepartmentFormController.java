@@ -1,9 +1,15 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc;
 
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbException;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.service.DepartmentService;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Alerts;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Constraints;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +20,8 @@ import java.util.ResourceBundle;
 public class DepartmentFormController implements Initializable {
 
     private Department department;
+
+    private DepartmentService departmentService;
 
     @FXML
     private TextField textFieldID;
@@ -34,12 +42,39 @@ public class DepartmentFormController implements Initializable {
         this.department = department;
     }
 
-    @FXML
-    public void onBtSaveAction() {
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @FXML
-    public void onBtCancelAction() {
+    public void onBtSaveAction(ActionEvent actionEvent) {
+        if (department == null) {
+            throw new IllegalStateException("Department was null");
+        }
+        if (departmentService == null) {
+            throw new IllegalStateException("Service was null");
+        }
+        try {
+            department = getFormData();
+            departmentService.saveOrUpdate(department);
+            Utils.currentStage(actionEvent).close();
+        } catch (DbException e) {
+            Alerts.showAlert("Error saving object", null, e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private Department getFormData() {
+        Department obj = new Department();
+
+        obj.setId(Utils.tryParseToInt(textFieldID.getText()));
+        obj.setName(textFieldName.getText());
+
+        return obj;
+    }
+
+    @FXML
+    public void onBtCancelAction(ActionEvent actionEvent) {
+        Utils.currentStage(actionEvent).close();
     }
 
     @Override
@@ -54,7 +89,7 @@ public class DepartmentFormController implements Initializable {
 
     public void updateFormData() {
         if (department == null) {
-            throw new IllegalStateException("Entity was null");
+            throw new IllegalStateException("Department was null");
         }
         textFieldID.setText(String.valueOf(department.getId()));
         textFieldName.setText(department.getName());
