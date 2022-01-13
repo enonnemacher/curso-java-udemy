@@ -1,9 +1,9 @@
 package com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.dao;
 
-import java.util.List;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 
-import model.entities.Department;
-import model.entities.Seller;
+import java.util.List;
 
 public interface SellerDao {
 

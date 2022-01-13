@@ -12,14 +12,9 @@ import java.util.Map;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DB;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbException;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.dao.SellerDao;
+import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Seller;
 import com.mysql.jdbc.Statement;
-
-import db.DB;
-import db.DbException;
-import model.dao.SellerDao;
-import model.entities.Department;
-import model.entities.Seller;
 
 public class SellerDaoJDBC implements SellerDao {
 

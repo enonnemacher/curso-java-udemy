@@ -13,11 +13,6 @@ import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbException;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.db.DbIntegrityException;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.dao.DepartmentDao;
 import com.enonnemacher.projetoaplicacaodesktopjavafxmysqljdbc.entities.Department;
-import db.DB;
-import db.DbException;
-import db.DbIntegrityException;
-import model.dao.DepartmentDao;
-import model.entities.Department;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 
